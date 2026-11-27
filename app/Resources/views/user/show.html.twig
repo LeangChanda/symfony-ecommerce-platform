@@ -1,0 +1,117 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}User Details{% endblock %}
+
+{% block body %}
+
+<main id="main">
+
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>User Details</h2>
+                <ol>
+                    <li><a href="{{ path('homepage') }}">Home</a></li>
+                    <li><a href="{{ path('user_index') }}">Users</a></li>
+                    <li>Details</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section class="inner-page">
+        <div class="container">
+
+            <div class="card">
+
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>{{ user.fullName ?: user.displayUsername }}</h4>
+
+                    <a href="{{ path('user_edit', {id: user.id}) }}"
+                       class="btn btn-warning">
+                        <i class="ri-edit-line"></i> Edit
+                    </a>
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-bordered">
+
+                        <tr>
+                            <th width="200">ID</th>
+                            <td>{{ user.id }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Username</th>
+                            <td>{{ user.displayUsername }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>First Name</th>
+                            <td>{{ user.firstName|default('-') }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Last Name</th>
+                            <td>{{ user.lastName|default('-') }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ user.phone|default('-') }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ user.address|default('-') }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Roles</th>
+                            <td>
+                                {% for role in user.roles %}
+                                    <span class="badge badge-info">
+                                        {{ role }}
+                                    </span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Account Status</th>
+                            <td>
+                                {% if user.isActive %}
+                                    <span class="text-success">Active</span>
+                                {% else %}
+                                    <span class="text-danger">Inactive</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Email Verified</th>
+                            <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                        </tr>
+
+                    </table>
+
+                    <a href="{{ path('user_index') }}" class="btn btn-secondary">
+                        Back to Users
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}

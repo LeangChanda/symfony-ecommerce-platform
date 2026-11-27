@@ -1,0 +1,137 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block body %}
+
+<main id="main">
+
+    <!-- Breadcrumbs -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Users</h2>
+                <ol>
+                    <li><a href="{{ path('homepage') }}">Home</a></li>
+                    <li>Users</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Section -->
+    <section id="team" class="team">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3>User Management</h3>
+
+                <a href="{{ path('user_new') }}" class="btn btn-primary">
+                    <i class="ri-user-add-line"></i> Create User
+                </a>
+            </div>
+
+            <!-- Flash Messages -->
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <!-- Search -->
+            <form method="get" action="{{ path('user_index') }}" class="mb-4">
+                <div class="input-group">
+                    <input
+                        type="text"
+                        name="keyword"
+                        class="form-control"
+                        placeholder="Search username, email or name..."
+                        value="{{ keyword }}"
+                    >
+
+                    <button type="submit" class="btn btn-outline-primary">
+                        Search
+                    </button>
+
+                    <a href="{{ path('user_index') }}" class="btn btn-secondary">
+                        Reset
+                    </a>
+                </div>
+            </form>
+
+            <div class="row">
+
+                {% for user in users %}
+
+                    <div class="col-lg-6 mt-4">
+                        <div class="member d-flex align-items-start">
+
+                            <div class="pic">
+                                <img
+                                    src="{{ asset('assets/img/team/team-1.jpg') }}"
+                                    class="img-fluid"
+                                    alt="User"
+                                >
+                            </div>
+
+                            <div class="member-info">
+
+                                <h4>{{ user.fullName ?: user.displayUsername }}</h4>
+
+                                <span>{{ user.email }}</span>
+
+                                <p>
+                                    <strong>Username:</strong>
+                                    {{ user.displayUsername }}
+                                    <br>
+
+                                    <strong>Phone:</strong>
+                                    {{ user.phone|default('-') }}
+                                    <br>
+
+                                    <strong>Status:</strong>
+
+                                    {% if user.isActive %}
+                                        <span class="text-success">Active</span>
+                                    {% else %}
+                                        <span class="text-danger">Inactive</span>
+                                    {% endif %}
+                                </p>
+
+                                <div class="social">
+
+                                    <a href="{{ path('user_show', {id: user.id}) }}"
+                                       title="View User">
+                                        <i class="ri-eye-line"></i>
+                                    </a>
+
+                                    <a href="{{ path('user_edit', {id: user.id}) }}"
+                                       title="Edit User">
+                                        <i class="ri-edit-line"></i>
+                                    </a>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+
+                    <div class="col-12">
+                        <div class="alert alert-info text-center">
+                            No users found.
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}

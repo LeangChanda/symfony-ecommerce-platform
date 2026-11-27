@@ -78,5 +78,43 @@ Enjoy!
 
 
 
-
+Using => Symfony 3.4.47 with PHP 7.4.33
 Run Project=> symfony server:start
+
+Create a database
+php bin/console doctrine:database:create
+php bin/console doctrine:schema:update --force
+
+
+if have problem with database cannot update table
+
+4. Upgrade Doctrine Annotations
+Now run:
+composer require doctrine/annotations:^1.8 -W
+
+
+The -W option allows Composer to update related dependencies when necessary.
+
+Check the installed version:
+composer show doctrine/annotations
+
+
+Expected: version 1.8.x or another compatible 1.x release.
+5. Test your Symfony project
+If the upgrade succeeds, run:
+rm -rf var/cache/dev var/cache/prod
+
+
+php bin/console cache:clear
+
+
+php bin/console doctrine:schema:validate
+
+
+Finally:
+php bin/console doctrine:schema:update --force
+
+
+
+Before proceeding, I want you to send me the output of:
+composer config platform.php

@@ -1,0 +1,71 @@
+
+<div class="user-form">
+
+    {{ form_start(form) }}
+
+    <div class="form-field">
+        {{ form_label(form.firstName, 'First Name') }}
+        {{ form_widget(form.firstName, {'attr': {'class': 'custom-input'}}) }}
+        {{ form_errors(form.firstName) }}
+    </div>
+
+    <div class="form-field">
+        {{ form_label(form.lastName, 'Last Name') }}
+        {{ form_widget(form.lastName, {'attr': {'class': 'custom-input'}}) }}
+        {{ form_errors(form.lastName) }}
+    </div>
+
+    <div class="form-field">
+        {{ form_label(form.email, 'Email') }}
+        {{ form_widget(form.email, {'attr': {'class': 'custom-input'}}) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="form-field">
+        {{ form_label(form.phone, 'Phone Number (optional)') }}
+        {{ form_widget(form.phone, {'attr': {'class': 'custom-input'}}) }}
+        {{ form_errors(form.phone) }}
+    </div>
+
+    <div class="form-field">
+        {{ form_label(form.address, 'Address') }}
+        {{ form_widget(form.address, {'attr': {'class': 'custom-input'}}) }}
+        {{ form_errors(form.address) }}
+    </div>
+
+    <div class="form-field">
+        {{ form_label(form.username, 'Username') }}
+        {{ form_widget(form.username, {'attr': {'class': 'custom-input'}}) }}
+        {{ form_errors(form.username) }}
+    </div>
+
+    <div class="form-field">
+        {{ form_label(form.password, 'Password') }}
+        {{ form_widget(form.password, {'attr': {'class': 'custom-input'}}) }}
+        {{ form_errors(form.password) }}
+    </div>
+
+    <div class="form-field">
+        {{ form_label(form.roles, 'User Roles') }}
+        {{ form_widget(form.roles) }}
+        {{ form_errors(form.roles) }}
+    </div>
+
+    <div class="form-field">
+        {{ form_widget(form.isActive) }}
+        {{ form_label(form.isActive) }}
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">
+            {{ button_label|default('Save') }}
+        </button>
+
+        <a href="{{ path('user_index') }}" class="btn btn-secondary">
+            Cancel
+        </a>
+    </div>
+
+    {{ form_end(form) }}
+
+</div>
